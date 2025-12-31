@@ -342,7 +342,7 @@
       <div class="card-face card-front">
         <div style="text-align: center">
           <br />
-          <h1>Happy New Year,<br />My Favorite Human 💫</h1>
+          <h1>Happy New Year,<br />My Favorite Special Girl 💫</h1>
         </div>
 
         <div class="countdown-container">
@@ -360,56 +360,91 @@
       </div>
 
       <!-- Back Face -->
-      <div class="card-face card-back">
-        <div style="text-align: center">
-          <div class="secret-message">Always Here For You ❤️</div>
-          <p style="font-size: 1rem; line-height: 1.5; color: #ddd">
-            No matter what 2026 brings,<br />I promise to be your<br />cheerleader,
-            therapist & partners in crime.
-          </p>
-        </div>
-
-        <div class="memory-slider">
-          <div class="slide active">
-            <h3>Late Night Talks 🌙</h3>
-            <p style="font-size: 0.9rem; color: #ccc">
-              Checking in at 3 A.M just because.
-            </p>
-          </div>
-          <div class="slide">
-            <h3>Random Laughs 😂</h3>
-            <p style="font-size: 0.9rem; color: #ccc">
-              Inside jokes nobody else gets.
-            </p>
-          </div>
-          <div class="slide">
-            <h3>Silent Support 🤝</h3>
-            <p style="font-size: 0.9rem; color: #ccc">
-              Understanding without words.
-            </p>
-          </div>
-          <div class="slide">
-            <h3>Crazy Adventures 🚀</h3>
-            <p style="font-size: 0.9rem; color: #ccc">
-              Making memories everywhere we go.
-            </p>
-          </div>
-        </div>
-
-        <button class="btn-main" id="newShayariBtn" style="font-size: 0.9rem; padding: 8px 16px; margin-bottom: 10px">
-          ✨ Change Vibe
-        </button>
-
-        <!-- Signature -->
-        <div id="signature">— From: Shivam ❤️</div>
-
-        <div class="controls">
-          <button class="icon-btn" id="musicToggle" title="Toggle Music">
-            🎵
-          </button>
-          <button class="icon-btn" id="flipBackBtn" title="Back">↩️</button>
-        </div>
+  <div class="card-face card-back">
+    <div style="text-align: center">
+      <div class="secret-message">Always Here For You ❤️</div>
+  
+      <p style="font-size: 1rem; line-height: 1.6; color: #eee; margin-bottom: 14px">
+        No matter what 2026 brings,<br />
+        I promise to be your<br />
+        cheerleader, therapist<br />
+        & partner in crime — always.
+      </p>
+  
+      <p style="font-size: 0.95rem; line-height: 1.6; color: #ccc; font-style: italic">
+        “Some people make the world feel lighter just by being in it —
+        you’re that person for me.”
+      </p>
+  
+      <p style="font-size: 0.95rem; line-height: 1.6; color: #ccc; margin-top: 8px">
+        “Through chaos, calm, laughter, and tears —
+        I choose you as my safe place.”
+      </p>
+    </div>
+  
+    <div class="memory-slider">
+      <div class="slide active">
+        <h3>Late Night Talks 🌙</h3>
+        <p style="font-size: 0.9rem; color: #ccc">
+          conversations that heal more than sleep ever could.
+        </p>
+        <p style="font-size: 0.85rem; color: #bbb; font-style: italic">
+          “Best therapy sessions are unplanned.”
+        </p>
       </div>
+  
+      <div class="slide">
+        <h3>Random Laughs 😂</h3>
+        <p style="font-size: 0.9rem; color: #ccc">
+          Laughing at things no one else would understand.
+        </p>
+        <p style="font-size: 0.85rem; color: #bbb; font-style: italic">
+          “Same joke. Same laugh. Every time.”
+        </p>
+      </div>
+  
+      <div class="slide">
+        <h3>Silent Support 🤝</h3>
+        <p style="font-size: 0.9rem; color: #ccc">
+          Standing beside each other without needing words.
+        </p>
+        <p style="font-size: 0.85rem; color: #bbb; font-style: italic">
+          “Real comfort doesn’t speak — it stays.”
+        </p>
+      </div>
+  
+      <div class="slide">
+        <h3>Crazy Adventures 🚀</h3>
+        <p style="font-size: 0.9rem; color: #ccc">
+          Turning ordinary moments into unforgettable stories.
+        </p>
+        <p style="font-size: 0.85rem; color: #bbb; font-style: italic">
+          “With you, every path feels exciting.”
+        </p>
+      </div>
+  
+      <div class="slide">
+        <h3>Unbreakable Bond 💫</h3>
+        <p style="font-size: 0.9rem; color: #ccc">
+          Growing together, no matter how life changes.
+        </p>
+        <p style="font-size: 0.85rem; color: #bbb; font-style: italic">
+          “Distance, time, or silence — nothing weakens us.”
+        </p>
+      </div>
+  
+      <div class="slide">
+        <h3>Forever Kind of Us ❤️</h3>
+        <p style="font-size: 0.9rem; color: #ccc">
+          A friendship that feels like home.
+        </p>
+        <p style="font-size: 0.85rem; color: #bbb; font-style: italic">
+          “Not temporary. Not replaceable. Just us.”
+        </p>
+      </div>
+    </div>
+  </div>
+
     </div>
   </div>
 
@@ -492,6 +527,7 @@
     typeShayari(shayaris[0]);
 
     // ========== 5. VOICE NARRATION ==========
+    
  function speakShayari(text) {
     if (!("speechSynthesis" in window)) return;
 
