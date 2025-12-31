@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy New Year, Bestie! ✨</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Outfit:wght@300;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --primary-color: #ff6b6b;
+      --secondary-color: #feca57;
+      --accent-color: #ff9ff3;
+      --dark-bg: #1a1a2e;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-color: #fff;
+      --bounce-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Outfit", sans-serif;
+      background: linear-gradient(135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #2a1b3d 100%);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    /* Background Animation Elements */
+    .background-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: var(--accent-color);
+      opacity: 0.6;
+      animation: floatUp 15s infinite linear;
+      font-size: 1.5rem;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.8;
+      }
+
+      90% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Canvas for Fireworks */
+    #fireworks-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Main Container */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 90%;
+      max-width: 450px;
+      height: 650px;
+    }
+
+    /* 3D Card Flip */
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.2s var(--bounce-easing);
+      cursor: pointer;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .card-front {
+      transform: rotateY(0deg);
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: rgba(26, 26, 46, 0.85);
+    }
+
+    /* Typography & Content */
+    h1 {
+      font-family: "Dancing Script", cursive;
+      font-size: 2.5rem;
+      text-align: center;
+      background: linear-gradient(to right, #ffd700, #ff9ff3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .countdown-container {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 1rem 0;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    .timer {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      font-variant-numeric: tabular-nums;
+      transition: all 0.5s ease;
+    }
+
+    .shayari-container {
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: #efefef;
+      position: relative;
+    }
+
+    .cursor::after {
+      content: "|";
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .btn-main {
+      padding: 12px 24px;
+      font-family: "Outfit", sans-serif;
+      font-weight: 500;
+      background: linear-gradient(45deg,
+          var(--primary-color),
+          var(--accent-color));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+      margin-top: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+    }
+
+    .btn-main::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent);
+      transition: 0.5s;
+    }
+
+    .btn-main:hover::before {
+      left: 100%;
+    }
+
+    /* Back Card specific */
+    .secret-message {
+      font-family: "Dancing Script", cursive;
+      font-size: 2rem;
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .memory-slider {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 20px 0;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out, transform 0.8s ease;
+      transform: translateY(20px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Signature */
+    #signature {
+      font-family: "Dancing Script", cursive;
+      font-size: 1.4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.2s ease;
+      color: #ffb6c1;
+      margin-top: 10px;
+    }
+
+    /* Utility */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .container {
+        width: 95%;
+        height: 600px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="background-elements" id="background-elements"></div>
+  <canvas id="fireworks-canvas"></canvas>
+
+  <div class="container">
+    <div class="card" id="mainCard">
+      <!-- Front Face -->
+      <div class="card-face card-front">
+        <div style="text-align: center">
+          <br />
+          <h1>Happy New Year,<br />My Favorite Human 💫</h1>
+        </div>
+
+        <div class="countdown-container">
+          <p style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.8">
+            New Year In:
+          </p>
+          <div class="timer" id="timer">00:00:00</div>
+        </div>
+
+        <div class="shayari-container">
+          <span id="shayari-text" class="cursor"></span>
+        </div>
+
+        <button class="btn-main" id="flipBtn">Tap for Surprise 🎁</button>
+      </div>
+
+      <!-- Back Face -->
+      <div class="card-face card-back">
+        <div style="text-align: center">
+          <div class="secret-message">Always Here For You ❤️</div>
+          <p style="font-size: 1rem; line-height: 1.5; color: #ddd">
+            No matter what 2026 brings,<br />I promise to be your<br />cheerleader,
+            therapist & partners in crime.
+          </p>
+        </div>
+
+        <div class="memory-slider">
+          <div class="slide active">
+            <h3>Late Night Talks 🌙</h3>
+            <p style="font-size: 0.9rem; color: #ccc">
+              Checking in at 3 A.M just because.
+            </p>
+          </div>
+          <div class="slide">
+            <h3>Random Laughs 😂</h3>
+            <p style="font-size: 0.9rem; color: #ccc">
+              Inside jokes nobody else gets.
+            </p>
+          </div>
+          <div class="slide">
+            <h3>Silent Support 🤝</h3>
+            <p style="font-size: 0.9rem; color: #ccc">
+              Understanding without words.
+            </p>
+          </div>
+          <div class="slide">
+            <h3>Crazy Adventures 🚀</h3>
+            <p style="font-size: 0.9rem; color: #ccc">
+              Making memories everywhere we go.
+            </p>
+          </div>
+        </div>
+
+        <button class="btn-main" id="newShayariBtn" style="font-size: 0.9rem; padding: 8px 16px; margin-bottom: 10px">
+          ✨ Change Vibe
+        </button>
+
+        <!-- Signature -->
+        <div id="signature">— From: Shivam ❤️</div>
+
+        <div class="controls">
+          <button class="icon-btn" id="musicToggle" title="Toggle Music">
+            🎵
+          </button>
+          <button class="icon-btn" id="flipBackBtn" title="Back">↩️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== 1. CONFIGURATION ==========
+    // 👉 Change name here only
+    const HER_NAME = "Sakshi"; // <-- replace with her name
+    const NICKNAME = "Sunshine"; // Nickname for emotional lines
+
+    // ========== 2. VARIABLES ==========
+    const flipBtn = document.getElementById("flipBtn");
+    const flipBackBtn = document.getElementById("flipBackBtn");
+    const card = document.getElementById("mainCard");
+    const shayariText = document.getElementById("shayari-text");
+    const timerElement = document.getElementById("timer");
+    const newShayariBtn = document.getElementById("newShayariBtn");
+    const musicToggle = document.getElementById("musicToggle");
+    const bgMusic = document.getElementById("bgMusic");
+    const signature = document.getElementById("signature");
+
+    let isMusicPlaying = false;
+    let currentShayariIndex = 0;
+    let charIndex = 0;
+    let typingInterval;
+
+    // ========== 3. SHAYARI DATA ==========
+    // New-Year-only Countdown Shayari
+    const newYearCountdownShayari = [
+      `Bas kuch pal aur ${HER_NAME},\nPhir naye sapne, nayi kahani shuru hogi ✨`,
+      `3…2…1… ${HER_NAME} 🌙\nHar dard peeche, har khushi aage 💫`,
+      `Iss last second mein bhi bas tu yaad aayi ${HER_NAME},\nNaya saal bhi tere naam 🥂`,
+      `Clock tik-tik kar rahi hai ${HER_NAME},\nAur meri dua bas ek hai — tu khush rahe ❤️`,
+    ];
+
+    // Main Shayari (Hinglish + Name Injected)
+    const shayaris = [
+      `${HER_NAME}, naya saal nayi umeedein laata hai,\nPar meri har umeed mein bas tu hi aati hai ✨`,
+
+      `Tu sirf dost nahi ${HER_NAME}, meri comfort zone hai,\nLife ke har chaos mein tu hi calm tone hai 💖`,
+
+      `Saal badalte rahe, log aate jaate rahe,\nPar ${HER_NAME}, tu hamesha meri constant rahe 🌸`,
+
+      `${HER_NAME}, kabhi hasi kabhi silence samjha hai,\nIs dosti ne mujhe bina bole sambhala hai 🤍`,
+
+      `Late replies ho ya late night talks,\n${HER_NAME} ke saath har moment priceless hota hai 🌙`,
+
+      `Dosti Google se nahi seekhi ${HER_NAME},\nTujhse milkar har definition likhi hai 😄`,
+
+      `Chahe 2026 ho ya uske baad ka saal,\n${HER_NAME} saath ho toh life sorted hai 🥂`,
+
+      `No drama, no fake vibes,\nBas real laughs with ${HER_NAME} 🤝`,
+
+      `Time badal jaata hai log bhi,\nPar ${HER_NAME} jaisi dosti rare hoti hai ⏳`,
+
+      `${HER_NAME}, tu meri kahani ka sabse soft chapter hai,\nAur har naye saal ki best prayer hai 💫`,
+    ];
+
+    // Emotional lines (use nickname)
+    const emotionalIndexes = [0, 3, 6, 9];
+
+    // ========== 4. TYPING ANIMATION ==========
+    function typeShayari(text) {
+      shayariText.textContent = "";
+      charIndex = 0;
+      clearInterval(typingInterval);
+
+      shayariText.style.whiteSpace = "pre-line";
+
+      typingInterval = setInterval(() => {
+        if (charIndex < text.length) {
+          shayariText.textContent += text.charAt(charIndex);
+          charIndex++;
+        } else {
+          clearInterval(typingInterval);
+        }
+      }, 50);
+    }
+
+    // Initialize first shayari
+    typeShayari(shayaris[0]);
+
+    // ========== 5. VOICE NARRATION ==========
+    function speakShayari(text) {
+      if (!("speechSynthesis" in window)) return;
+
+      const msg = new SpeechSynthesisUtterance(text.replace(/\n/g, " "));
+
+      msg.rate = 0.9;
+      msg.pitch = 1.1;
+      msg.volume = 1;
+
+      const voices = speechSynthesis.getVoices();
+      const softVoice = voices.find(
+        (v) =>
+          v.name.toLowerCase().includes("female") ||
+          v.name.toLowerCase().includes("google")
+      );
+
+      if (softVoice) msg.voice = softVoice;
+
+      // 🎶 LOWER MUSIC WHEN VOICE STARTS
+      if (isMusicPlaying) bgMusic.volume = 0.25;
+
+      msg.onend = () => {
+        // 🎶 RESTORE MUSIC AFTER VOICE
+        if (isMusicPlaying) bgMusic.volume = 1;
+      };
+
+      speechSynthesis.cancel();
+      speechSynthesis.speak(msg);
+    }
+
+    // ========== 6. BUTTON INTERACTIONS ==========
+    newShayariBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
+
+      let text = shayaris[currentShayariIndex];
+
+      // 📝 NICKNAME FOR EMOTIONAL LINES
+      if (emotionalIndexes.includes(currentShayariIndex)) {
+        text = text.replace(HER_NAME, NICKNAME);
+      }
+
+      typeShayari(text);
+      speakShayari(text);
+      createSparkles(e.clientX, e.clientY);
+    });
+
+    flipBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.add("flipped");
+      startConfetti();
+
+      // 💌 SIGNATURE REVEAL
+      setTimeout(() => {
+        signature.style.opacity = "1";
+        signature.style.transform = "translateY(0)";
+        speakShayari(`From Shivam, with lots of love`);
+      }, 2500);
+
+      // Try to play music
+      if (!isMusicPlaying) {
+        bgMusic
+          .play()
+          .then(() => {
+            isMusicPlaying = true;
+            musicToggle.textContent = "⏸️";
+          })
+          .catch((err) => {
+            console.log("Audio play failed:", err);
+          });
+      }
+    });
+
+    flipBackBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.classList.remove("flipped");
+    });
+
+    musicToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        musicToggle.textContent = "🎵";
+        isMusicPlaying = false;
+      } else {
+        bgMusic.play().catch((e) => console.log("No audio source found"));
+        musicToggle.textContent = "⏸️";
+        isMusicPlaying = true;
+      }
+    });
+
+    // ========== 7. COUNTDOWN TIMER ==========
+    const nextYear = new Date().getFullYear() + 1;
+    const newYearDate = new Date(`Jan 1, ${nextYear} 00:00:00`).getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const gap = newYearDate - now;
+
+      if (gap < 0) {
+        timerElement.innerText = "HAPPY NEW YEAR!";
+        timerElement.style.fontSize = "1.5rem";
+        timerElement.style.color = "#ffd700";
+
+        // 🎇 NAME FIREWORKS AT NEW YEAR
+        nameFireworks();
+        speakShayari(`Happy New Year ${HER_NAME}`);
+        return;
+      }
+
+      const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((gap % (1000 * 60)) / 1000);
+
+      // SPECIAL COUNTDOWN SHAYARI (last 10 seconds)
+      if (gap < 10000 && gap > 0) {
+        const randomNY =
+          newYearCountdownShayari[
+          Math.floor(Math.random() * newYearCountdownShayari.length)
+          ];
+
+        typeShayari(randomNY);
+        speakShayari(randomNY);
+
+        timerElement.innerText = `✨ ${seconds} ✨`;
+        timerElement.style.transform = "scale(1.3)";
+        timerElement.style.color = "#ffeb3b";
+      } else {
+        if (days > 0) {
+          timerElement.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+          timerElement.innerText = `${String(hours).padStart(
+            2,
+            "0"
+          )}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+            2,
+            "0"
+          )}`;
+        }
+        timerElement.style.transform = "scale(1)";
+        timerElement.style.color = "var(--secondary-color)";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ========== 8. BACKGROUND HEARTS ==========
+    function createHearts() {
+      const container = document.getElementById("background-elements");
+      const heartCount = 15;
+      const emojis = ["❤️", "💖", "✨", "🌸", "🥂"];
+
+      for (let i = 0; i < heartCount; i++) {
+        const span = document.createElement("span");
+        span.classList.add("floating-heart");
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animationDuration = Math.random() * 10 + 10 + "s";
+        span.style.fontSize = Math.random() * 1 + 1 + "rem";
+        span.style.animationDelay = Math.random() * 15 + "s";
+
+        span.addEventListener("click", function (e) {
+          createSparkles(e.clientX, e.clientY);
+          this.style.transform = "scale(1.5)";
+          setTimeout(() => {
+            this.style.transform = "scale(1)";
+          }, 200);
+        });
+
+        container.appendChild(span);
+      }
+    }
+    createHearts();
+
+    // ========== 9. MEMORY SLIDER ==========
+    const slides = document.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    function nextSlide() {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+
+    setInterval(nextSlide, 3500);
+
+    // ========== 10. FIREWORKS & SPARKLES ==========
+    const canvas = document.getElementById("fireworks-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width, height;
+    let particles = [];
+    const colors = ["#feca57", "#ff6b6b", "#ff9ff3", "#54a0ff", "#5f27cd"];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor(x, y, isFirework = false) {
+        this.x = x;
+        this.y = y;
+        this.isFirework = isFirework;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+
+        if (isFirework) {
+          this.velocity = {
+            x: Math.random() * 6 - 3,
+            y: Math.random() * 6 - 3,
+          };
+          this.life = 100;
+          this.size = Math.random() * 3 + 1;
+        } else {
+          this.velocity = {
+            x: Math.random() * 0.5 - 0.25,
+            y: Math.random() * 0.5 - 0.25,
+          };
+          this.life = 200;
+          this.size = Math.random() * 2;
+        }
+        this.alpha = 1;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      update() {
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.alpha -= 0.01;
+        this.life--;
+      }
+    }
+
+    // 🎇 NAME FIREWORKS FUNCTION
+    function nameFireworks() {
+      const centerX = width / 2;
+      const centerY = height / 3;
+
+      for (let i = 0; i < 120; i++) {
+        particles.push(new Particle(centerX, centerY, true));
+      }
+
+      // Draw name glow
+      ctx.save();
+      ctx.font = "48px Dancing Script";
+      ctx.fillStyle = "#ffd700";
+      ctx.textAlign = "center";
+      ctx.shadowColor = "#ff9ff3";
+      ctx.shadowBlur = 20;
+      ctx.fillText(HER_NAME, centerX, centerY);
+      ctx.restore();
+    }
+
+    function createSparkles(x, y) {
+      for (let i = 0; i < 10; i++) {
+        particles.push(new Particle(x, y, true));
+      }
+    }
+
+    function launchFireworks() {
+      if (Math.random() < 0.05) {
+        const x = Math.random() * width;
+        const y = (Math.random() * height) / 2;
+        createSparkles(x, y);
+      }
+    }
+
+    function animateCanvas() {
+      requestAnimationFrame(animateCanvas);
+      ctx.clearRect(0, 0, width, height);
+
+      // Background sparkles
+      if (Math.random() < 0.1) {
+        particles.push(
+          new Particle(Math.random() * width, Math.random() * height)
+        );
+      }
+
+      launchFireworks();
+
+      particles.forEach((p, index) => {
+        p.update();
+        p.draw();
+        if (p.life <= 0 || p.alpha <= 0) {
+          particles.splice(index, 1);
+        }
+      });
+    }
+
+    animateCanvas();
+
+    function startConfetti() {
+      const rect = flipBtn.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      for (let i = 0; i < 50; i++) {
+        particles.push(new Particle(x, y, true));
+      }
+    }
+  </script>
+</body>
+
+</html>
