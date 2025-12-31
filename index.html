@@ -492,35 +492,47 @@
     typeShayari(shayaris[0]);
 
     // ========== 5. VOICE NARRATION ==========
-    function speakShayari(text) {
-      if (!("speechSynthesis" in window)) return;
+ function speakShayari(text) {
+    if (!("speechSynthesis" in window)) return;
 
-      const msg = new SpeechSynthesisUtterance(text.replace(/\n/g, " "));
+    const msg = new SpeechSynthesisUtterance(text.replace(/\n/g, " "));
 
-      msg.rate = 0.9;
-      msg.pitch = 1.1;
-      msg.volume = 1;
+    // 🇮🇳 Hindi only
+    msg.lang = "hi-IN";
+    msg.rate = 0.9;   // poetic pace
+    msg.pitch = 0.85; // slightly deep → male feel
+    msg.volume = 1;
 
-      const voices = speechSynthesis.getVoices();
-      const softVoice = voices.find(
-        (v) =>
-          v.name.toLowerCase().includes("female") ||
-          v.name.toLowerCase().includes("google")
+    const voices = speechSynthesis.getVoices();
+
+    // 🎙️ Prefer Hindi Male voice
+    let maleHindiVoice =
+      voices.find(v =>
+        v.lang === "hi-IN" &&
+        !v.name.toLowerCase().includes("female")
       );
 
-      if (softVoice) msg.voice = softVoice;
-
-      // 🎶 LOWER MUSIC WHEN VOICE STARTS
-      if (isMusicPlaying) bgMusic.volume = 0.25;
-
-      msg.onend = () => {
-        // 🎶 RESTORE MUSIC AFTER VOICE
-        if (isMusicPlaying) bgMusic.volume = 1;
-      };
-
-      speechSynthesis.cancel();
-      speechSynthesis.speak(msg);
+    // 🔁 Fallbacks (important)
+    if (!maleHindiVoice) {
+      maleHindiVoice = voices.find(v => v.lang === "hi-IN");
     }
+    if (!maleHindiVoice) {
+      maleHindiVoice = voices.find(v => v.lang.startsWith("en"));
+    }
+
+    if (maleHindiVoice) msg.voice = maleHindiVoice;
+
+    // 🎶 Lower background music during speech
+    if (isMusicPlaying) bgMusic.volume = 0.25;
+
+    msg.onend = () => {
+      if (isMusicPlaying) bgMusic.volume = 1;
+    };
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(msg);
+  }
+
 
     // ========== 6. BUTTON INTERACTIONS ==========
     newShayariBtn.addEventListener("click", (e) => {
